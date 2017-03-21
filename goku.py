@@ -384,8 +384,8 @@ class Player (cocos.sprite.Sprite):
 	def removemoveright(self):
 		self.ismoveright=False
 	def jump(self):
-		jumpheight=200
-		jumpwidth=90
+		jumpheight=80
+		jumpwidth=100
 		jumptime=.4
 		if self.isjump==False:
 			self.isjump=True
