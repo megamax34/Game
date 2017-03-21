@@ -84,7 +84,6 @@ class UILayer(cocos.layer.Layer):
 			self.heart2.kill()
 		if self.numLives == 0:
 			self.heart1.kill()
-		if self.numLives<0:
 			cocos.director.director.replace(FadeTRTransition(self.game.get_menu_scene(), 2))
 
 
@@ -140,7 +139,7 @@ class Playerlayer(cocos.layer.Layer):
 			if pyglet.window.key.UP ==key:
 				if self.playerid in self.players:
 					player = self.players[self.playerid]
-					player.jump()
+					self.jump()
 			self.keys_being_pressed.remove(key)
 		#if pyglet.window.key.S == key and numkills>4 and isSuper==False:
 		#	if self.playerid in self.players:
@@ -386,15 +385,15 @@ class Player (cocos.sprite.Sprite):
 	def jump(self):
 		jumpheight=80
 		jumpwidth=100
-		jumptime=.4
+		jumptime=.5
 		if self.isjump==False:
 			self.isjump=True
 			if self.ismoveleft==True:
-				self.do(actions.MoveBy((-jumpwidth,jumpheight),jumptime)+actions.MoveBy((-jumpwidth,-jumpheight),jumptime)+actions.CallFuncS(Player.markjumpfinished))
+				self.do(actions.MoveBy((-jumpwidth,jumpheight),jumptime)+actions.MoveBy((-jumpwidth,-jumpheight),jumptime-.1)+actions.CallFuncS(Player.markjumpfinished))
 			elif self.ismoveright==True:
-				self.do(actions.MoveBy((jumpwidth,jumpheight),jumptime)+actions.MoveBy((jumpwidth,-jumpheight),jumptime)+actions.CallFuncS(Player.markjumpfinished))
+				self.do(actions.MoveBy((jumpwidth,jumpheight),jumptime)+actions.MoveBy((jumpwidth,-jumpheight),jumptime-.1)+actions.CallFuncS(Player.markjumpfinished))
 			else:
-				self.do(actions.MoveBy((0,jumpheight),jumptime)+actions.MoveBy((0,-jumpheight),jumptime)+actions.CallFuncS(Player.markjumpfinished))
+				self.do(actions.MoveBy((0,jumpheight+20),jumptime)+actions.MoveBy((0,-jumpheight-20),jumptime)+actions.CallFuncS(Player.markjumpfinished))
 	def markjumpfinished(self):
 		self.isjump=False
 	def changemoveleft(self):
